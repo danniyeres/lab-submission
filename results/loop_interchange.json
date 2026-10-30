@@ -1,0 +1,23 @@
+{
+  "ijk": {
+    "median_seconds": 15.982769374997588,
+    "samples_seconds": [
+      15.982769374997588,
+      14.246081792021869,
+      16.578113208001014
+    ]
+  },
+  "ikj": {
+    "median_seconds": 13.06743920900044,
+    "samples_seconds": [
+      13.424310875008814,
+      12.411768334015505,
+      13.06743920900044
+    ]
+  },
+  "N": 1344,
+  "sub_block_size": 672,
+  "speedup_ijk_over_ikj": 1.2230988121979676,
+  "max_abs_error": 0.0,
+  "reference_sha256_rounded_6": "efbea64445deb8fbd579a3f9045f46599b48d99bc9101731c8a555beddd0e1d5"
+}

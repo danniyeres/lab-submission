@@ -1,0 +1,3 @@
+# Parallel Computing Performance Practicum
+
+This project measures memory stride, matrix loop order, false sharing, and strong/weak process scaling on the local host. Run scripts from the repository root with `python3 src/profile_env.py --student-id 12345678`, replacing the example with your eight-digit ID. The checked-in workspace outputs were produced with placeholder ID `00000000` and reduced smoke-run settings; rerun the scripts with your own ID and without `--quick` to generate submission measurements. Results are host-specific: Python process overhead, cache sharing, memory bandwidth, and platform telemetry availability affect the observed figures.
