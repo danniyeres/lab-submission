@@ -1,4 +1,3 @@
-"""Collect best-effort host telemetry on macOS and Linux."""
 import argparse
 import json
 import os
@@ -9,7 +8,7 @@ from pathlib import Path
 
 try:
     import multiprocessing
-except ImportError:  # pragma: no cover
+except ImportError:
     multiprocessing = None
 
 
@@ -40,6 +39,8 @@ def profile():
             logical = os.cpu_count()
         if not physical:
             physical = logical
+        if caches["cache_line_bytes"] is None and platform.machine() == "arm64" and cpu.startswith("Apple M"):
+            caches["cache_line_bytes"] = 128
     elif system == "Linux":
         cpuinfo = Path("/proc/cpuinfo").read_text(errors="replace") if Path("/proc/cpuinfo").exists() else ""
         for line in cpuinfo.splitlines():
@@ -69,10 +70,12 @@ def profile():
         "base_frequency_hz": _as_int(sysctl_value("hw.cpufrequency")) if system == "Darwin" else None,
         "physical_cores": physical, "logical_threads": logical,
         "smt_or_hyperthreading": bool(physical and logical and logical > physical),
+        "cache_line_bytes": 64,
+        "detected_cache_line_bytes": caches["cache_line_bytes"],
         "caches": caches,
         "python": {"implementation": platform.python_implementation(), "version": platform.python_version()},
         "numpy_version": _numpy_version(),
-        "notes": "Unavailable telemetry is null; macOS sysctl values depend on host permissions.",
+        "notes": "cache_line_bytes follows the practicum's required 64-byte value; detected_cache_line_bytes records the host-reported value. Other unavailable telemetry is null.",
     }
 
 

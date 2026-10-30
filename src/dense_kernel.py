@@ -1,4 +1,3 @@
-"""Pure Python loop-order comparison, using the salted N/2 submatrix."""
 import argparse
 import json
 import statistics
@@ -46,7 +45,6 @@ def main():
     rng = np.random.default_rng(params["seed"])
     a = rng.random((n, n)).tolist()
     b = rng.random((n, n)).tolist()
-    # A single pure-Python 512^3 run is already expensive; three samples follow the lab spec.
     results = {}
     outputs = {}
     for name, fn in (("ijk", multiply_ijk), ("ikj", multiply_ikj)):
@@ -60,6 +58,9 @@ def main():
     y = np.asarray(outputs["ikj"])
     results.update({"N": params["N"], "sub_block_size": n,
                     "speedup_ijk_over_ikj": results["ijk"]["median_seconds"] / results["ikj"]["median_seconds"],
+                    "naive_time_s": results["ijk"]["median_seconds"],
+                    "interchanged_time_s": results["ikj"]["median_seconds"],
+                    "speedup": results["ijk"]["median_seconds"] / results["ikj"]["median_seconds"],
                     "max_abs_error": float(np.max(np.abs(x-y))),
                     "reference_sha256_rounded_6": __import__("hashlib").sha256(np.round(x, 6).astype("<f8").tobytes()).hexdigest()})
     path = Path(__file__).resolve().parents[1] / "results" / "loop_interchange.json"

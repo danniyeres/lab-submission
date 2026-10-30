@@ -1,4 +1,3 @@
-"""Strong/weak scaling of a process-parallel 2D stencil, with roofline estimate."""
 import argparse
 import json
 import math
@@ -13,7 +12,6 @@ import numpy as np
 
 def _stencil_chunk(args):
     array, start, stop = args
-    # Five-point stencil over assigned interior rows.
     return (array[start-1:stop-1, 1:-1] + array[start+1:stop+1, 1:-1]
             + array[start:stop, :-2] + array[start:stop, 2:]
             + array[start:stop, 1:-1]) * 0.2
@@ -74,8 +72,6 @@ def main():
             _run(a, p)
             samples.append(time.perf_counter() - start)
         t = statistics.median(samples)
-        # Gustafson scaled speedup compares normalized single-worker time to the
-        # weak-scaling run: ideal time for the larger problem grows by P.
         weak[p] = {"dimension": np_, "seconds": t,
                    "scaled_speedup": (p * strong_times[1]) / t}
     outdir = Path(__file__).resolve().parents[1] / "results"
@@ -89,10 +85,14 @@ def main():
     roofline = {"kernel": "five-point average stencil", "strong_dimension": n,
                 "floating_point_ops_per_cell": 5, "estimated_dram_bytes_per_cell": 48,
                 "arithmetic_intensity_flop_per_byte": ops / bytes_est,
+                "arithmetic_intensity": ops / bytes_est,
                 "estimated_peak_memory_bandwidth_bytes_per_second": None,
-                "classification": "undetermined_without_platform_peak_bandwidth_and_measured_kernel_flops",
+                "classification": "memory-bandwidth-bound (inferred from low arithmetic intensity; peak bandwidth unavailable)",
+                "regime": "memory-bound (inferred; measured peak bandwidth unavailable)",
                 "note": "The 48 B/cell model assumes five float64 loads and one float64 store; cache reuse can reduce DRAM traffic."}
-    (outdir / "roofline_summary.json").write_text(json.dumps({"strong": strong, "weak": weak, "roofline": roofline}, indent=2) + "\n")
+    (outdir / "roofline_summary.json").write_text(json.dumps({"strong": strong, "weak": weak,
+        "regime": roofline["regime"], "arithmetic_intensity": roofline["arithmetic_intensity"],
+        "roofline": roofline}, indent=2) + "\n")
     print(outdir / "scaling_metrics.tsv")
 
 

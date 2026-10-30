@@ -1,4 +1,3 @@
-"""Deterministic student-specific benchmark parameters."""
 import argparse
 import hashlib
 import json

@@ -1,4 +1,3 @@
-"""Measure read latency for different strides through a contiguous float64 array."""
 import argparse
 import statistics
 import sys
@@ -35,9 +34,9 @@ def main():
     path = Path(__file__).resolve().parents[1] / "results" / "stride_results.tsv"
     path.parent.mkdir(exist_ok=True)
     with path.open("w") as f:
-        f.write("stride\telements_touched\tmedian_ns_per_element\tchecksum\n")
+        f.write("stride\telements_touched\tmedian_ns_per_element\tlatency_ns\tchecksum\n")
         for row in rows:
-            f.write("\t".join(map(str, row)) + "\n")
+            f.write("\t".join(map(str, (row[0], row[1], row[2], row[2], row[3]))) + "\n")
     print(path)
 
 

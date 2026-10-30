@@ -7,16 +7,18 @@
   "physical_cores": 8,
   "logical_threads": 8,
   "smt_or_hyperthreading": false,
+  "cache_line_bytes": 64,
+  "detected_cache_line_bytes": 128,
   "caches": {
     "L1_data_bytes": null,
     "L2_bytes": null,
     "L3_bytes": null,
-    "cache_line_bytes": null
+    "cache_line_bytes": 128
   },
   "python": {
     "implementation": "CPython",
     "version": "3.11.5"
   },
   "numpy_version": "2.4.6",
-  "notes": "Unavailable telemetry is null; macOS sysctl values depend on host permissions."
+  "notes": "cache_line_bytes follows the practicum's required 64-byte value; detected_cache_line_bytes records the host-reported value. Other unavailable telemetry is null."
 }

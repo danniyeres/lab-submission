@@ -1,60 +1,64 @@
 {
   "strong": {
     "1": {
-      "seconds": 0.13530083300429396,
+      "seconds": 0.14309308299561962,
       "speedup": 1.0,
       "efficiency_percent": 100.0,
       "karp_flatt_serial_fraction": 0.0
     },
     "2": {
-      "seconds": 0.16457200000877492,
-      "speedup": 0.8221376236363401,
-      "efficiency_percent": 41.10688118181701,
-      "karp_flatt_serial_fraction": 1.4326827315771515
+      "seconds": 0.17164625000441447,
+      "speedup": 0.833651087582394,
+      "efficiency_percent": 41.6825543791197,
+      "karp_flatt_serial_fraction": 1.39908521657429
     },
     "4": {
-      "seconds": 0.20885354198981076,
-      "speedup": 0.6478263749575041,
-      "efficiency_percent": 16.195659373937602,
-      "karp_flatt_serial_fraction": 1.7248312997765751
+      "seconds": 0.1892733330023475,
+      "speedup": 0.7560129085582536,
+      "efficiency_percent": 18.900322713956342,
+      "karp_flatt_serial_fraction": 1.4303049832081822
     },
     "8": {
-      "seconds": 0.36481912501039915,
-      "speedup": 0.3708709980608534,
-      "efficiency_percent": 4.635887475760668,
-      "karp_flatt_serial_fraction": 2.938691829245605
+      "seconds": 0.3712890000024345,
+      "speedup": 0.3853954278060524,
+      "efficiency_percent": 4.817442847575655,
+      "karp_flatt_serial_fraction": 2.822557235209319
     }
   },
   "weak": {
     "1": {
       "dimension": 1344,
-      "seconds": 0.1307835830084514,
-      "scaled_speedup": 1.0345398856028487
+      "seconds": 0.14265629200963303,
+      "scaled_speedup": 1.0030618417164319
     },
     "2": {
       "dimension": 1901,
-      "seconds": 0.19387804198777303,
-      "scaled_speedup": 1.395731374394907
+      "seconds": 0.46363233399461024,
+      "scaled_speedup": 0.6172696445165669
     },
     "4": {
       "dimension": 2688,
-      "seconds": 0.5372378329921048,
-      "scaled_speedup": 1.0073812728396017
+      "seconds": 1.0151527920097578,
+      "scaled_speedup": 0.5638287521716995
     },
     "8": {
       "dimension": 3802,
-      "seconds": 3.559301500004949,
-      "scaled_speedup": 0.3041064838235386
+      "seconds": 2.4655780830071308,
+      "scaled_speedup": 0.4642905742286509
     }
   },
+  "regime": "memory-bound (inferred; measured peak bandwidth unavailable)",
+  "arithmetic_intensity": 0.10416666666666667,
   "roofline": {
     "kernel": "five-point average stencil",
     "strong_dimension": 1344,
     "floating_point_ops_per_cell": 5,
     "estimated_dram_bytes_per_cell": 48,
     "arithmetic_intensity_flop_per_byte": 0.10416666666666667,
+    "arithmetic_intensity": 0.10416666666666667,
     "estimated_peak_memory_bandwidth_bytes_per_second": null,
-    "classification": "undetermined_without_platform_peak_bandwidth_and_measured_kernel_flops",
+    "classification": "memory-bandwidth-bound (inferred from low arithmetic intensity; peak bandwidth unavailable)",
+    "regime": "memory-bound (inferred; measured peak bandwidth unavailable)",
     "note": "The 48 B/cell model assumes five float64 loads and one float64 store; cache reuse can reduce DRAM traffic."
   }
 }
